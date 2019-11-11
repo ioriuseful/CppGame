@@ -190,16 +190,18 @@ void HelloWorld::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 	m_pProgram->use();
 	error = glGetError();
 	// 四角形の４頂点分の座標
-	Vec3 pos[4];
-	Vec4 color[4];
-	Vec2 uv[4];
+	Vec3 pos[6];
+	Vec4 color[6];
+	Vec2 uv[6];
 	const float x = 0.5f;
 	const float y = 0.5f;
 	// 座標を１点ずつ設定
-	pos[0] = Vec3(-x, -y, 0);
-	pos[1] = Vec3(-x, y, 0);
-	pos[2] = Vec3(x, -y, 0);
-	pos[3] = Vec3(x, y, 0);
+	pos[0] = Vec3(-x - counter / 120.0f, -y + counter / 120.0f, 0);
+	pos[1] = Vec3(-x - counter / 120.0f, y + counter / 120.0f, 0);
+	pos[2] = Vec3(x - counter / 120.0f, -y + counter / 120.0f, 0);
+	pos[3] = Vec3(-x + counter / 120.0f, y - counter / 120.0f, 0);
+	pos[4] = Vec3(x + counter / 120.0f, -y - counter / 120.0f, 0);
+	pos[5] = Vec3(x + counter / 120.0f, y - counter / 120.0f, 0);
 	// カラーを一点ずつ設定
 	float red =1.0f;
 	float green=0;
@@ -208,11 +210,20 @@ void HelloWorld::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 	color[1] = Vec4(1, 1, 1, 1);
 	color[2] = Vec4(1, 1, 1, 1);
 	color[3] = Vec4(1, 1, 1, 1);
+	color[4] = Vec4(1, 1, 1, 1);
+	color[5] = Vec4(1, 1, 1, 1);
+
+
+	counter++;
 	// テクスチャ座標を1点ずつ設定
-	uv[0] = Vec2(0, 1);
+	uv[0] = Vec2(0, 1 );
 	uv[1] = Vec2(0, 0);
 	uv[2] = Vec2(1, 1);
-	uv[3] = Vec2(1, 0);
+	uv[3] = Vec2(0, 0);
+	uv[4] = Vec2(1, 1);
+	uv[5] = Vec2(1, 0);
+
+
 	/*float red;
 	float green;
 	float blue;
@@ -254,13 +265,15 @@ void HelloWorld::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 	glUniform1i(uniform_sampler, 0);
 	GL::bindTexture2D(m_pTexture->getName());
 	// 4頂点分のデータで四角形を描画する
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDrawArrays(GL_TRIANGLES, 0, 33);
 
 
 
 	// 4頂点分のデータで四角形を描画する
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
+	// 4頂点分のデータで四角形を描画する
+	//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	//glBlendEquation(GL_FUNC_ADD);
 	error = glGetError();
 }
