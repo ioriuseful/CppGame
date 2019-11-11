@@ -1,8 +1,7 @@
-varying vec4 v_color; // （入力）色
-
+// （入力）色
+varying vec4 v_color;
 void main()
 {
-//↓RGBA指定
-  //gl_FragColor = vec4(1.0,0.0,0.0,0.0);
-  gl_FragColor = v_color; // シェーダの出力にカラーをコピ
+// シェーダの出力にカラーをコピー
+gl_FragColor = v_color;
 }
